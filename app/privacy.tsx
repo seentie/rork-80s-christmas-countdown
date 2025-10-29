@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>© 2025 Old Skool Apps. All rights reserved.</Text>
+          <Text style={styles.footerText}>{`© 2025 Old Skool Apps. All rights reserved.`}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
