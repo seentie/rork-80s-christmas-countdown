@@ -13,9 +13,11 @@ interface Light {
 }
 
 export default function ChristmasDecorations() {
+  const [isReady, setIsReady] = React.useState(false);
   const lights = useRef<Light[]>([]);
 
   useEffect(() => {
+    lights.current = [];
     const lightColors = [COLORS.neonPink, COLORS.neonCyan, COLORS.neonYellow, COLORS.neonGreen, COLORS.neonPurple];
     let lightId = 0;
     
@@ -96,13 +98,21 @@ export default function ChristmasDecorations() {
     };
 
     animateLights();
+    
+    setIsReady(true);
 
     return () => {
       lights.current.forEach((light) => {
         light.opacity.removeAllListeners();
       });
+      setIsReady(false);
+      lights.current = [];
     };
   }, []);
+  
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <View style={styles.container} pointerEvents="none">

@@ -14,10 +14,12 @@ interface Snowflake {
 }
 
 export default function SnowFalling() {
+  const [isReady, setIsReady] = React.useState(false);
   const snowflakes = useRef<Snowflake[]>([]);
 
   useEffect(() => {
-    const numSnowflakes = 300;
+    snowflakes.current = [];
+    const numSnowflakes = 150;
     const columnsPerRow = 10;
     const baseSpacing = SCREEN_WIDTH / columnsPerRow;
     
@@ -56,11 +58,19 @@ export default function SnowFalling() {
     });
 
     animations.forEach(anim => anim.start());
+    
+    setIsReady(true);
 
     return () => {
       animations.forEach(anim => anim.stop());
+      setIsReady(false);
+      snowflakes.current = [];
     };
   }, []);
+  
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <View style={styles.container} pointerEvents="none">

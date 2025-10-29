@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Animated, Platform } from 're
 import Svg, { Path, G, Circle as SvgCircle } from 'react-native-svg';
 import * as Haptics from 'expo-haptics';
 
+const AnimatedView = Animated.View;
+
 interface NaughtyOrNiceWheelProps {
   colors: {
     neonPink: string;
@@ -97,9 +99,9 @@ export default function NaughtyOrNiceWheel({ colors }: NaughtyOrNiceWheelProps) 
     return { x, y };
   };
 
-  const rotation = spinValue.interpolate({
+  const rotationValue = spinValue.interpolate({
     inputRange: [0, 360],
-    outputRange: ['0deg', '360deg'],
+    outputRange: [0, 360],
   });
 
 
@@ -120,36 +122,45 @@ export default function NaughtyOrNiceWheel({ colors }: NaughtyOrNiceWheelProps) 
           <View style={[styles.pointerTriangle, { borderTopColor: colors.neonYellow }]} />
         </View>
 
-        <Animated.View
+        <AnimatedView
           style={[
             styles.wheel,
             {
-              transform: [{ rotate: rotation }],
+              transform: [
+                {
+                  rotate: rotationValue.interpolate({
+                    inputRange: [0, 360],
+                    outputRange: ['0deg', '360deg'],
+                  }),
+                },
+              ],
             },
           ]}
         >
-          <Svg width="250" height="250" style={styles.svg}>
-            <G>
-              {segments.map((segment, index) => (
-                <Path
-                  key={`segment-${index}`}
-                  d={createSegmentPath(index)}
-                  fill={segment.color}
+          <View style={styles.svgContainer}>
+            <Svg width="250" height="250" style={styles.svg}>
+              <G>
+                {segments.map((segment, index) => (
+                  <Path
+                    key={`segment-${index}`}
+                    d={createSegmentPath(index)}
+                    fill={segment.color}
+                    stroke={colors.neonPurple}
+                    strokeWidth="2"
+                  />
+                ))}
+                
+                <SvgCircle
+                  cx="125"
+                  cy="125"
+                  r="123"
+                  fill="none"
                   stroke={colors.neonPurple}
-                  strokeWidth="2"
+                  strokeWidth="4"
                 />
-              ))}
-              
-              <SvgCircle
-                cx="125"
-                cy="125"
-                r="123"
-                fill="none"
-                stroke={colors.neonPurple}
-                strokeWidth="4"
-              />
-            </G>
-          </Svg>
+              </G>
+            </Svg>
+          </View>
 
           {segments.map((segment, index) => {
             const position = getLabelPosition(index);
@@ -194,7 +205,7 @@ export default function NaughtyOrNiceWheel({ colors }: NaughtyOrNiceWheelProps) 
               {isSpinning ? '...' : 'TAP'}
             </Text>
           </View>
-        </Animated.View>
+        </AnimatedView>
       </TouchableOpacity>
 
       {!isSpinning && !message && (
@@ -265,6 +276,11 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  svgContainer: {
+    position: 'absolute',
+    width: 250,
+    height: 250,
   },
   svg: {
     position: 'absolute',

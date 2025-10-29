@@ -13,11 +13,14 @@ interface Particle {
 }
 
 export default function FloatingParticles() {
+  const [isReady, setIsReady] = React.useState(false);
   const particles = useRef<Particle[]>([]);
 
   useEffect(() => {
-    // Create particles
     const colors = [COLORS.neonPink, COLORS.neonCyan, COLORS.neonPurple, COLORS.neonYellow];
+    const animations: Animated.CompositeAnimation[] = [];
+    
+    particles.current = [];
     
     for (let i = 0; i < 15; i++) {
       const particle: Particle = {
@@ -30,11 +33,10 @@ export default function FloatingParticles() {
       
       particles.current.push(particle);
       
-      // Animate particle
       const duration = Math.random() * 10000 + 15000;
       const delay = Math.random() * 5000;
       
-      Animated.loop(
+      const animation = Animated.loop(
         Animated.sequence([
           Animated.delay(delay),
           Animated.parallel([
@@ -61,22 +63,30 @@ export default function FloatingParticles() {
               }),
             ]),
           ]),
-          Animated.parallel([
-            Animated.timing(particle.y, {
-              toValue: SCREEN_HEIGHT + 50,
-              duration: 0,
-              useNativeDriver: true,
-            }),
-            Animated.timing(particle.opacity, {
-              toValue: 0,
-              duration: 0,
-              useNativeDriver: true,
-            }),
-          ]),
+          Animated.timing(particle.y, {
+            toValue: SCREEN_HEIGHT + 50,
+            duration: 0,
+            useNativeDriver: true,
+          }),
         ])
-      ).start();
+      );
+      
+      animations.push(animation);
+      animation.start();
     }
+    
+    setIsReady(true);
+
+    return () => {
+      animations.forEach(anim => anim.stop());
+      setIsReady(false);
+      particles.current = [];
+    };
   }, []);
+  
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <View style={StyleSheet.absoluteFillObject} pointerEvents="none">
