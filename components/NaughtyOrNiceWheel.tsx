@@ -213,7 +213,6 @@ export default function NaughtyOrNiceWheel({ colors }: NaughtyOrNiceWheelProps) 
           Tap to spin
         </Text>
       )}
-      
       {!isSpinning && message && (
         <View style={styles.messageContainer}>
           <Text style={[styles.messageText, { color: colors.neonYellow }]}>
