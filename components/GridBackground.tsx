@@ -17,7 +17,6 @@ export default function GridBackground({ colors }: GridBackgroundProps) {
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <Svg width={SCREEN_WIDTH} height={SCREEN_HEIGHT} style={StyleSheet.absoluteFillObject}>
-        {/* Horizontal lines */}
         {Array.from({ length: horizontalLines }).map((_, i) => (
           <Line
             key={`h-${i}`}
@@ -30,8 +29,6 @@ export default function GridBackground({ colors }: GridBackgroundProps) {
             opacity="0.3"
           />
         ))}
-        
-        {/* Vertical lines */}
         {Array.from({ length: verticalLines }).map((_, i) => (
           <Line
             key={`v-${i}`}

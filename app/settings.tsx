@@ -132,10 +132,10 @@ export default function Settings() {
               On December 25th, enjoy a full 24 hours of festive magic! Watch as snowflakes fall across your screen and colorful lights twinkle all around the perimeter from midnight to midnight.
             </Text>
             <Text style={styles.infoText}>
-              Can&apos;t wait? Use the &quot;TEST CHRISTMAS SNOWFALL&quot; button on the main screen for a 20-second preview of what&apos;s coming!
+              Can't wait? Use the "TEST CHRISTMAS SNOWFALL" button on the main screen for a 20-second preview of what's coming!
             </Text>
             <Text style={styles.infoText}>
-              While you wait, test your naughtiness or niceness with the spinner! It&apos;s more fun while you wait - utilize it anytime year round to get your reading.
+              While you wait, test your naughtiness or niceness with the spinner! It's more fun while you wait - utilize it anytime year round to get your reading.
             </Text>
           </View>
         </View>

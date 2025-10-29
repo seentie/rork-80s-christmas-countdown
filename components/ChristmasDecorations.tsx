@@ -106,7 +106,6 @@ export default function ChristmasDecorations() {
 
   return (
     <View style={styles.container} pointerEvents="none">
-      {/* Lights around perimeter */}
       {lights.current.map((light) => (
         <Animated.View
           key={light.id}
