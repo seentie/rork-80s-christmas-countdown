@@ -172,7 +172,9 @@ export default function Settings() {
         <View style={styles.footer}>
           <Text style={styles.footerText}>OLD SKOOL APPS</Text>
           <Text style={styles.footerSubtext}>HO HO HO forever xo</Text>
-          <Text style={styles.heartText}>This app was created out of love for the magic of Christmas, both the secular and religious traditions, and the holiday memories that only mean more each passing year 🩷💚</Text>
+          <Text style={styles.heartText}>
+            This app was created out of love for the magic of Christmas, both the secular and religious traditions, and the holiday memories that only mean more each passing year 🩷💚
+          </Text>
           <Text style={styles.copyrightText}>© 2025 Old Skool Apps. All rights reserved.</Text>
         </View>
       </ScrollView>
