@@ -42,8 +42,6 @@ export default function GridBackground({ colors }: GridBackgroundProps) {
           />
         ))}
       </Svg>
-      
-      {/* Gradient overlay for depth */}
       <View style={styles.gradientOverlay} />
     </View>
   );

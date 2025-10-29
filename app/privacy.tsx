@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Overview</Text>
           <Text style={styles.paragraph}>
-            OLD SKOOL APPS (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) respects your privacy. This Christmas Countdown app is designed to be completely private and offline. This Privacy Policy explains our commitment to protecting your privacy.
+            OLD SKOOL APPS ("we," "our," or "us") respects your privacy. This Christmas Countdown app is designed to be completely private and offline. This Privacy Policy explains our commitment to protecting your privacy.
           </Text>
         </View>
 
@@ -63,7 +63,7 @@ export default function PrivacyPolicy() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Children&apos;s Privacy</Text>
+          <Text style={styles.sectionTitle}>Children's Privacy</Text>
           <Text style={styles.paragraph}>
             This app is safe for all ages. Since we do not collect any personal information from anyone, including children, there are no privacy concerns for users of any age.
           </Text>
