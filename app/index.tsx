@@ -51,6 +51,17 @@ export default function ChristmasCountdown() {
     return month === 11 && day === 25; // December is month 11
   }, [currentDate]);
 
+  const targetChristmasYear = useMemo(() => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const day = currentDate.getDate();
+    // If it's after December 25th, target next year
+    if (month === 11 && day > 25) {
+      return year + 1;
+    }
+    return year;
+  }, [currentDate]);
+
   const daysRemaining = Math.floor(timeLeft.total / (1000 * 60 * 60 * 24));
 
   const dynamicStyles = useMemo(() => StyleSheet.create({
@@ -206,7 +217,7 @@ export default function ChristmasCountdown() {
                   <Text style={dynamicStyles.daysNumber}>{formatTimeUnit(daysRemaining)}</Text>
                   <Text style={dynamicStyles.daysLabel}>DAYS TO GO</Text>
                 </View>
-                <Text style={dynamicStyles.dateText}>to December 25, 2025</Text>
+                <Text style={dynamicStyles.dateText}>to December 25, {targetChristmasYear}</Text>
               </View>
 
               <MovieFactBox />
