@@ -9,18 +9,15 @@ export interface TimeLeft {
 export function getTimeUntilChristmas(): TimeLeft {
   const now = new Date();
   const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth();
-  const currentDay = now.getDate();
   
   // Christmas is December 25th (month 11 in JavaScript)
-  let christmasYear = currentYear;
+  // Always target this year's Christmas first
+  let christmas = new Date(currentYear, 11, 25, 0, 0, 0, 0);
   
-  // If it's December 26th or later, count down to next year's Christmas
-  if (currentMonth === 11 && currentDay > 25) {
-    christmasYear = currentYear + 1;
+  // If Christmas this year has already passed, target next year's Christmas
+  if (now.getTime() > christmas.getTime()) {
+    christmas = new Date(currentYear + 1, 11, 25, 0, 0, 0, 0);
   }
-  
-  const christmas = new Date(christmasYear, 11, 25, 0, 0, 0, 0);
   const difference = christmas.getTime() - now.getTime();
   
   if (difference < 0) {
