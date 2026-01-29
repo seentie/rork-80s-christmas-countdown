@@ -16,10 +16,12 @@ interface Snowflake {
 export default function SnowFalling() {
   const [isReady, setIsReady] = React.useState(false);
   const snowflakes = useRef<Snowflake[]>([]);
+  const animationsRef = useRef<Animated.CompositeAnimation[]>([]);
 
   useEffect(() => {
     snowflakes.current = [];
-    const numSnowflakes = 150;
+    animationsRef.current = [];
+    const numSnowflakes = 80;
     const columnsPerRow = 10;
     const baseSpacing = SCREEN_WIDTH / columnsPerRow;
     
@@ -41,7 +43,7 @@ export default function SnowFalling() {
       });
     }
 
-    const animations = snowflakes.current.map((snowflake) => {
+    animationsRef.current = snowflakes.current.map((snowflake) => {
       const pileHeight = SCREEN_HEIGHT * 0.15;
       const targetY = SCREEN_HEIGHT - pileHeight + (Math.random() * 50);
 
@@ -57,12 +59,13 @@ export default function SnowFalling() {
       );
     });
 
-    animations.forEach(anim => anim.start());
+    animationsRef.current.forEach(anim => anim.start());
     
     setIsReady(true);
 
     return () => {
-      animations.forEach(anim => anim.stop());
+      animationsRef.current.forEach(anim => anim.stop());
+      animationsRef.current = [];
       setIsReady(false);
       snowflakes.current = [];
     };

@@ -67,7 +67,7 @@ export default function Settings() {
             activeOpacity={0.7}
           >
             <View style={styles.menuItemLeft}>
-              <Shield size={24} color={RETRO_COLORS.neonGreen} />
+              <Shield size={24} color={RETRO_COLORS.neonGreen} style={{ marginRight: 12 }} />
               <Text style={styles.menuItemText}>Privacy Policy</Text>
             </View>
             <ChevronRight size={20} color={RETRO_COLORS.neonPink} />
@@ -83,7 +83,7 @@ export default function Settings() {
             activeOpacity={0.7}
           >
             <View style={styles.menuItemLeft}>
-              <Mail size={24} color={RETRO_COLORS.neonGreen} />
+              <Mail size={24} color={RETRO_COLORS.neonGreen} style={{ marginRight: 12 }} />
               <View>
                 <Text style={styles.menuItemText}>Email Support</Text>
                 <Text style={styles.menuItemSubtext}>sarah@oldskoolapps.com</Text>
@@ -98,7 +98,7 @@ export default function Settings() {
             activeOpacity={0.7}
           >
             <View style={styles.menuItemLeft}>
-              <Phone size={24} color={RETRO_COLORS.neonGreen} />
+              <Phone size={24} color={RETRO_COLORS.neonGreen} style={{ marginRight: 12 }} />
               <View>
                 <Text style={styles.menuItemText}>Phone Support</Text>
                 <Text style={styles.menuItemSubtext}>(646) 540-9602</Text>
@@ -113,7 +113,7 @@ export default function Settings() {
             activeOpacity={0.7}
           >
             <View style={styles.menuItemLeft}>
-              <Globe size={24} color={RETRO_COLORS.neonGreen} />
+              <Globe size={24} color={RETRO_COLORS.neonGreen} style={{ marginRight: 12 }} />
               <View>
                 <Text style={styles.menuItemText}>Website</Text>
                 <Text style={styles.menuItemSubtext}>www.oldskoolapps.com</Text>
@@ -132,10 +132,10 @@ export default function Settings() {
               On December 25th, enjoy a full 24 hours of festive magic! Watch as snowflakes fall across your screen and colorful lights twinkle all around the perimeter from midnight to midnight.
             </Text>
             <Text style={styles.infoText}>
-              Can't wait? Use the "TEST CHRISTMAS SNOWFALL" button on the main screen for a 20-second preview of what's coming!
+              {"Can't wait? Use the \"TEST CHRISTMAS SNOWFALL\" button on the main screen for a 20-second preview of what's coming!"}
             </Text>
             <Text style={styles.infoText}>
-              While you wait, test your naughtiness or niceness with the spinner! It's more fun while you wait - utilize it anytime year round to get your reading.
+              {"While you wait, test your naughtiness or niceness with the spinner! It's more fun while you wait - utilize it anytime year round to get your reading."}
             </Text>
           </View>
         </View>
@@ -220,7 +220,6 @@ const styles = StyleSheet.create({
   menuItemLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
     flex: 1,
   },
   menuItemText: {

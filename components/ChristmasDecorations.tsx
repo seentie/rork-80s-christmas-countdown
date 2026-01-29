@@ -30,15 +30,16 @@ export default function ChristmasDecorations() {
     const bottomWidth = SCREEN_WIDTH;
     const leftHeight = SCREEN_HEIGHT;
     
-    const lightsTop = Math.floor((topWidth / perimeter) * totalLights);
-    const lightsRight = Math.floor((rightHeight / perimeter) * totalLights);
-    const lightsBottom = Math.floor((bottomWidth / perimeter) * totalLights);
-    const lightsLeft = totalLights - lightsTop - lightsRight - lightsBottom;
+    const lightsTop = Math.max(2, Math.floor((topWidth / perimeter) * totalLights));
+    const lightsRight = Math.max(2, Math.floor((rightHeight / perimeter) * totalLights));
+    const lightsBottom = Math.max(2, Math.floor((bottomWidth / perimeter) * totalLights));
+    const lightsLeft = Math.max(2, totalLights - lightsTop - lightsRight - lightsBottom);
     
     for (let i = 0; i < lightsTop; i++) {
+      const divisor = Math.max(1, lightsTop - 1);
       lights.current.push({
         id: lightId++,
-        x: (topWidth / (lightsTop - 1)) * i,
+        x: (topWidth / divisor) * i,
         y: 20,
         color: lightColors[lightId % lightColors.length],
         opacity: new Animated.Value(0.3),
@@ -46,19 +47,21 @@ export default function ChristmasDecorations() {
     }
     
     for (let i = 1; i < lightsRight; i++) {
+      const divisor = Math.max(1, lightsRight);
       lights.current.push({
         id: lightId++,
         x: SCREEN_WIDTH - 20,
-        y: 20 + (rightHeight / lightsRight) * i,
+        y: 20 + (rightHeight / divisor) * i,
         color: lightColors[lightId % lightColors.length],
         opacity: new Animated.Value(0.3),
       });
     }
     
     for (let i = lightsBottom - 1; i >= 0; i--) {
+      const divisor = Math.max(1, lightsBottom - 1);
       lights.current.push({
         id: lightId++,
-        x: (bottomWidth / (lightsBottom - 1)) * i,
+        x: (bottomWidth / divisor) * i,
         y: SCREEN_HEIGHT - 20,
         color: lightColors[lightId % lightColors.length],
         opacity: new Animated.Value(0.3),
@@ -66,45 +69,43 @@ export default function ChristmasDecorations() {
     }
     
     for (let i = lightsLeft - 1; i > 0; i--) {
+      const divisor = Math.max(1, lightsLeft);
       lights.current.push({
         id: lightId++,
         x: 20,
-        y: 20 + (leftHeight / lightsLeft) * i,
+        y: 20 + (leftHeight / divisor) * i,
         color: lightColors[lightId % lightColors.length],
         opacity: new Animated.Value(0.3),
       });
     }
 
-    // Animate lights twinkling
-    const animateLights = () => {
-      lights.current.forEach((light, index) => {
-        const delay = index * 50;
-        Animated.loop(
-          Animated.sequence([
-            Animated.delay(delay),
-            Animated.timing(light.opacity, {
-              toValue: 1,
-              duration: 600,
-              useNativeDriver: true,
-            }),
-            Animated.timing(light.opacity, {
-              toValue: 0.3,
-              duration: 600,
-              useNativeDriver: true,
-            }),
-          ])
-        ).start();
-      });
-    };
-
-    animateLights();
+    const animations: Animated.CompositeAnimation[] = [];
+    
+    lights.current.forEach((light, index) => {
+      const delay = index * 50;
+      const anim = Animated.loop(
+        Animated.sequence([
+          Animated.delay(delay),
+          Animated.timing(light.opacity, {
+            toValue: 1,
+            duration: 600,
+            useNativeDriver: true,
+          }),
+          Animated.timing(light.opacity, {
+            toValue: 0.3,
+            duration: 600,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+      animations.push(anim);
+      anim.start();
+    });
     
     setIsReady(true);
 
     return () => {
-      lights.current.forEach((light) => {
-        light.opacity.removeAllListeners();
-      });
+      animations.forEach((anim) => anim.stop());
       setIsReady(false);
       lights.current = [];
     };

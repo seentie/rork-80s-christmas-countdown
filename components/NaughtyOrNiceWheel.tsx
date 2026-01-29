@@ -220,7 +220,7 @@ export default function NaughtyOrNiceWheel({ colors }: NaughtyOrNiceWheelProps) 
           </Text>
           <TouchableOpacity 
             onPress={() => setMessage('')}
-            style={styles.spinAgainButton}
+            style={[styles.spinAgainButton, { marginTop: 12 }]}
           >
             <Text style={[styles.spinAgainText, { color: colors.neonCyan }]}>
               Spin Again
@@ -321,7 +321,6 @@ const styles = StyleSheet.create({
   messageContainer: {
     marginTop: 20,
     alignItems: 'center',
-    gap: 12,
   },
   messageText: {
     fontSize: 18,

@@ -277,6 +277,7 @@ export default function ChristmasCountdown() {
                   style={[
                     styles.paletteOption,
                     currentPalette === paletteKey && styles.paletteOptionActive,
+                    { marginRight: 15 },
                   ]}
                   onPress={() => {
                     setCurrentPalette(paletteKey);
@@ -285,8 +286,8 @@ export default function ChristmasCountdown() {
                   activeOpacity={0.7}
                 >
                   <View style={styles.paletteColors}>
-                    <View style={[styles.colorDot, { backgroundColor: COLOR_PALETTES[paletteKey].neonPink }]} />
-                    <View style={[styles.colorDot, { backgroundColor: COLOR_PALETTES[paletteKey].neonCyan }]} />
+                    <View style={[styles.colorDot, { backgroundColor: COLOR_PALETTES[paletteKey].neonPink, marginRight: 8 }]} />
+                    <View style={[styles.colorDot, { backgroundColor: COLOR_PALETTES[paletteKey].neonCyan, marginRight: 8 }]} />
                     <View style={[styles.colorDot, { backgroundColor: COLOR_PALETTES[paletteKey].neonGreen }]} />
                   </View>
                   <Text style={[
@@ -373,7 +374,6 @@ const styles = StyleSheet.create({
   },
   paletteScroll: {
     paddingHorizontal: 20,
-    gap: 15,
   },
   paletteOption: {
     alignItems: "center",
@@ -390,7 +390,6 @@ const styles = StyleSheet.create({
   },
   paletteColors: {
     flexDirection: "row",
-    gap: 8,
     marginBottom: 10,
   },
   colorDot: {
